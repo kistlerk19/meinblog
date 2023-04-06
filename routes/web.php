@@ -19,6 +19,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(["web"])->group(function ()
 { 
+    // Post::insert(
+    //     [
+    //         "url" => "/",
+    //         "is_trending" => true,
+    //         "author" => "Kistler Gyamfi",
+    //         "author_image_url" => "https://avatars.githubusercontent.com/u/63625414?s=96&v=4",
+    //         "image_url_portrait" => "https://picsum.photos/300/350",
+    //         "image_url_landscape" => "https://picsum.photos/360/160",
+    //         "title" => "Mein kleines CyberBlog",
+    //         "date" => "November 11, 1911",
+    //         "description" => "Cybersicherheit wird immer wichtiger, da wir uns mehr und mehr auf Technologie verlassen. Erfahren Sie, wie Sie wie Sie Ihr Netzwerk und Ihre Daten mit Themen wie VPNs, Sicherheitssoftware und Netzwerksicherheit schützen können.",
+    //         "content" => "Cybersicherheit wird immer wichtiger, da wir uns mehr und mehr auf Technologie verlassen. Erfahren Sie, wie Sie wie Sie Ihr Netzwerk und Ihre Daten mit Themen wie VPNs, Sicherheitssoftware und Netzwerksicherheit schützen können.",
+    //     ]
+    // );
     Route::get("/", [HomeController::class, "home"]);
     // Route::get('/', function () {
     //     return view('home', [

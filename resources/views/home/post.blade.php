@@ -10,9 +10,9 @@
                     <div class="row h-100 pt-4 align-item-center">
                         <div class="col-12 mx-auto">
                             <small class="text-muted fs-8">{{ $post['date'] }}</small><br>
-                            @foreach (explode(',', $post['tags']) as $tag)
-                                <span class="text-primary fw-bolder fs-8 pe-1">{{ $tag }}</span>
-                                @if ($loop->iteration < count(explode(',', $post['tags'])))
+                            @foreach ($post['tags'] as $tag)
+                                <span class="text-primary fw-bolder fs-8 pe-1">{{ $tag['name'] }}</span>
+                                @if ($loop->iteration < count($post['tags']))
                                     <span class="text-primary fw-bolder fs-8 pe-1">&#x2022;
                                     </span>
                                 @endif

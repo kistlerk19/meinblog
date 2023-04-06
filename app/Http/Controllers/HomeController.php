@@ -18,6 +18,6 @@ class HomeController extends Controller
     }
     public function home(Request $request) : View
     {
-        return view('home', $this->homeService->home());
+        return view('home', $this->homeService->home($request));
     }
 }

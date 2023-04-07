@@ -26,8 +26,12 @@ class PostService
      * @param int $pageLength
      * @return array
      */
-    public function UIList(int $page, int $pageLength): array
+    public function UIList(int $page, int $pageLength, array $filters = []): array
     {
-        return $this->postRepository->UIList($page, $pageLength);
+        return $this->postRepository->UIList($page, $pageLength, $filters);
+    }
+    public function UIListRecent(): array
+    {
+        return $this->postRepository->UIListRecent();
     }
 }

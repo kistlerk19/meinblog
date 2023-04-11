@@ -25,6 +25,11 @@ Route::middleware(["auth"])->group(function () {
             "title" => "Dashboard"
         ]);
     });
+    Route::get("/dashboard/users", function () {
+        return view("dashboard.users.main", [
+            "title" => "Users"
+        ]);
+    });
 });
 
 Route::middleware(["web"])->group(function ()

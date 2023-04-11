@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::post("/login", [AuthController::class, "login"])->middleware("guest");
-Route::get("/logout", [AuthController::class, "logout"])->middleware("auth");
+// Route::get("/logout", [AuthController::class, "logout"])->middleware("auth");
+
+Route::middleware(["auth"])->group(function () {
+    Route::get("/logout", [AuthController::class, "logout"]);
+    Route::get("/dashboard/users/index", [UserController::class, "index"]);
+});

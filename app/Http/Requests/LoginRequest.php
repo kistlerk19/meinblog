@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
 {
-    public function rules()
+    public function rules() : array
     {
         return [
             "email" => "required|string|email|exists:users,email",
@@ -16,7 +16,7 @@ class LoginRequest extends FormRequest
         ];
     }
     
-    public function data()
+    public function data() : array
     {
         return [
             "email" => $this->input("email"),

@@ -14,7 +14,7 @@
                         <a href="#" class="nav-link">Images</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Users</a>
+                        <a href="{{ url('/dashboard/users') }}" class="nav-link">Users</a>
                     </li>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace App\Modules\User;
 
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -56,8 +57,8 @@ class UserDataTableRepository
         $result = json_decode(json_encode(DB::select($query["sql"], $query["bindings"])), true);
 
         return [
-            "recordsFiltered" => 10,
-            "recordsTotal" => 10,
+            "recordsFiltered" => json_decode(json_encode(DB::selectOne($query["countSql"], $query["bindings"])), true)["total"],
+            "recordsTotal" => User::count(),
             "data" => $result,
         ];
     }
@@ -74,6 +75,9 @@ class UserDataTableRepository
 
         return [
             "sql" => "SELECT $selectColumns
+                      FROM $this->table
+                      LIMIT $length OFFSET $start",
+            "countSql" => "SELECT COUNT(*) as total
                       FROM $this->table
                       LIMIT $length OFFSET $start",
             "bindings" => [],

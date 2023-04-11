@@ -29,7 +29,7 @@ class UserService
             return $row;
         }, $results["data"]);
 
-        dd($results);
+        // dd($results);
         return $results;
     }
 }

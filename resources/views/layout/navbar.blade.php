@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-lg nabar-light mt-2 mb-2 p-0">
             <div class="container-fluid p-0">
                 <a href="/" class="navbar-brand"><b>Ma Blog</b></a>
-                <a href="/login" class="button button-light">Login</a>
+                <a href="/login" class="btn btn-light">LOGIN</a>
             </div>
         </nav>
     </div>

@@ -1,9 +1,9 @@
 <div class="row g-0">
     <div class="col-12 p-2 ps-4 pe-4 m-0">
-        <nav class="navbar nabar-light mt-2 mb-2 p-0">
+        <nav class="navbar navbar-expand-lg nabar-light mt-2 mb-2 p-0">
             <div class="container-fluid p-0">
                 <a href="/" class="navbar-brand"><b>Ma Blog</b></a>
-                <a href="/login"><button type="button" class="btn btn-light">Login</button></a>
+                <a href="/login" class="button button-light">Login</a>
             </div>
         </nav>
     </div>

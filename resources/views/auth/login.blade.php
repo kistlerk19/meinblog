@@ -126,7 +126,7 @@
                         error: function (response){
                             loginSubmitted = false;
                             
-                            if (response.status = 422) {
+                            if (response.status == 422) {
                                 addErrors(formatErrors(response.responseJSON.errors));
                             } else {
                                 addErrors(["Unable to process your request."]);

@@ -29,8 +29,8 @@ Route::middleware(["auth"])->group(function () {
 
 Route::middleware(["web"])->group(function ()
 { 
-    Route::get("/", [HomeController::class, "home"]);
-    Route::get("/login", [AuthController::class, "loginView"]);
+    Route::get("/", [HomeController::class, "home"])->name("home");
+    Route::get("/login", [AuthController::class, "loginView"])->name("login");
     // Route::get('/', function () {
     //     return view('home', [
     //         "title" => "Mein CyberBlog",

@@ -36,6 +36,7 @@ class UserDataTableRepository
     ];
     
     protected string $joinQuery = "";
+    
     protected string $where = "users.id > 0";
 
     public function index(

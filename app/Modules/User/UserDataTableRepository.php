@@ -72,15 +72,38 @@ class UserDataTableRepository
     ) : array
     {
         $selectColumns = implode(",", $this->selectColumns);
+        $orderQuery = $this->buildOrderByQuery($columns, $order);
 
         return [
             "sql" => "SELECT $selectColumns
                       FROM $this->table
+                      $orderQuery
                       LIMIT $length OFFSET $start",
             "countSql" => "SELECT COUNT(*) as total
                       FROM $this->table
                       LIMIT $length OFFSET $start",
             "bindings" => [],
         ];
+    }
+
+    private function buildOrderByQuery(array $columnList, array $orderList) : string
+    {
+        $orderByQueryList = [];
+
+        foreach ($orderList as $toOrderElement) {
+            $orderBy = $toOrderElement["dir"];
+            if($columnList[$toOrderElement["column"]]["orderable"] == true) {
+                $columnName = $columnList[$toOrderElement["column"]]["data"];
+                if(in_array($columnName, $this->orderColumns)) {
+                    $orderByQueryList [] = "{$this->exceptionColumns[$columnName]}} $orderBy";
+                }
+            }
+        }
+
+        if (count($orderByQueryList) > 0) {
+            return "ORDER BY " . implode(",", $orderByQueryList);
+        }
+        
+        return "";
     }
 }

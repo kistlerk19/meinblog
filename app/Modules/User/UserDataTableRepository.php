@@ -36,7 +36,7 @@ class UserDataTableRepository
     ];
     
     protected string $joinQuery = "";
-    
+
     protected string $where = "users.id > 0";
 
     public function index(
@@ -96,7 +96,7 @@ class UserDataTableRepository
             if($columnList[$toOrderElement["column"]]["orderable"] == true) {
                 $columnName = $columnList[$toOrderElement["column"]]["data"];
                 if(in_array($columnName, $this->orderColumns)) {
-                    $orderByQueryList [] = "{$this->exceptionColumns[$columnName]}} $orderBy";
+                    $orderByQueryList[] = "{$this->exceptionColumns[$columnName]} $orderBy";
                 }
             }
         }

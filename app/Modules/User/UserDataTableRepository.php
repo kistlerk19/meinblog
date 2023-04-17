@@ -74,16 +74,27 @@ class UserDataTableRepository
     {
         $selectColumns = implode(",", $this->selectColumns);
         $orderQuery = $this->buildOrderByQuery($columns, $order);
+        $searchQueryObject = $this->buildSearchQuery($columns, $search);
+
+        $whereQuery = ($this->where !== "")
+            ? "WHERE $this->where"
+            : "";
+
+        if($searchQueryObject["sql"] !== "") {
+            $whereQuery = "$whereQuery AND ({$searchQueryObject["sql"]})";
+        }
 
         return [
             "sql" => "SELECT $selectColumns
                       FROM $this->table
+                      $whereQuery
                       $orderQuery
                       LIMIT $length OFFSET $start",
             "countSql" => "SELECT COUNT(*) as total
                       FROM $this->table
+                      $whereQuery
                       LIMIT $length OFFSET $start",
-            "bindings" => [],
+            "bindings" => $searchQueryObject["bindings"],
         ];
     }
 
@@ -97,7 +108,7 @@ class UserDataTableRepository
             if($columnList[$toOrderElement["column"]]["orderable"] == true) {
                 $columnName = $columnList[$toOrderElement["column"]]["data"];
                 if(in_array($columnName, $this->orderColumns)) {
-                    $orderByQueryList[] = "{$this->exceptionColumns[$columnName]} $orderBy";
+                    $orderByQueryList [] = "{$this->exceptionColumns[$columnName]} $orderBy";
                 }
             }
         }
@@ -107,5 +118,26 @@ class UserDataTableRepository
         }
         
         return "";
+    }
+
+    private function buildSearchQuery(array $columnList, array $searchList) : array
+    {
+        $bindingList = [];
+        $queryList = [];
+
+        $searchValue = $searchList["value"];
+
+        foreach ($columnList as $column) {
+            $columnName = $column["data"];
+            if(in_array($columnName, $this->searchColumns)){
+                $queryList [] = "{$this->exceptionColumns[$columnName]} LIKE ?";
+                $bindingList [] = "%$searchValue%";
+            }
+        }
+
+        return [
+            "sql" => implode(" OR ", $queryList),
+            "bindings" => $bindingList,
+        ];
     }
 }

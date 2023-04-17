@@ -24,10 +24,15 @@ class AuthController extends Controller
     
     public function login(LoginRequest $request) : JsonResponse | RedirectResponse
     {
-        // $credentials = $request->data();
         if (Auth::attempt($request->data())) {
             $request->session()->regenerate();
-            return response()->json();
+
+            $user = Auth::user();
+
+            return response()->json([
+                "user" => $user,
+                "token" => $user->createToken($user->email)->plainTextToken,
+            ]);
         }
         return back()->withErrors([
             "email" => "Input data is wrong.",

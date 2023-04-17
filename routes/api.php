@@ -21,10 +21,15 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::middleware(["web"])->group(function () {
     Route::post("/login", [AuthController::class, "login"]);
-    Route::get("/logout", [AuthController::class, "logout"])->middleware(["auth"]);
 });
 // Route::get("/logout", [AuthController::class, "logout"])->middleware("auth");
 
 Route::middleware(["auth:sanctum"])->group(function () {
+    Route::get("/logout", [AuthController::class, "logout"]);
+    
     Route::get("/dashboard/users/index", [UserController::class, "index"]);
+
+    Route::get("/dashboard/users/{id}", [UserController::class, "get"])->where("id", "[0-9]*");
+    Route::delete("/dashboard/users/{id}", [UserController::class, "delete"])->where("id", "[0-9]*");
+    Route::post("/dashboard/users", [UserController::class, "update"]);
 });

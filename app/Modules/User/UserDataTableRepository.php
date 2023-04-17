@@ -87,6 +87,7 @@ class UserDataTableRepository
         ];
     }
 
+    // Build QUERY
     private function buildOrderByQuery(array $columnList, array $orderList) : string
     {
         $orderByQueryList = [];

@@ -5,7 +5,7 @@ $("#logoutButton").click(function (e){
             window.location.href = "/";
         },
         error: function () {
-            // window.location.href = "/",
+            // window.location.href = "/";
         }
     });
 });

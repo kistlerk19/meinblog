@@ -17,17 +17,18 @@ class UserRepository
     {
         User::findOrFail($id)->delete();
     }
-    public function update(UserUpdateRequest $userRequest) : User
+    public function update(UserUpdateRequest $request) : User
     {
-        $data = $userRequest->data();
+        $data = $request->data();
 
         $newUser = ($data["id"] === null)
             ? new User()
             : $this->get($data["id"]);
-        
+
         $newUser->name = $data["name"];
         $newUser->email = $data["email"];
-        if($data["password"] !== null){
+
+        if ($data["password"] !== null) {
             $newUser->password = bcrypt($data["password"]);
         }
 

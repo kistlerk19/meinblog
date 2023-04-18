@@ -14,14 +14,15 @@ class UserUpdateRequest extends FormRequest
         return [
             "id" => "nullable|numeric",
             "name" => "required|string|min:3",
-            "email" => "required|email|unique:users,email,$id",
+            "email" => "required|email|unique:users,email",
             "password" => "nullable|confirmed|min:6|required_without:id",
         ];
     }
     public function data() : array
     {
+        $id = $this->input("id", null);
         return [
-            "id" => $this->input("id", null),
+            "id" => ($id === null) ? null : (int)$id,
             "name" => $this->input("name"),
             "email" => $this->input("email"),
             "password" => $this->input("password", null),

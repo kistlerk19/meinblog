@@ -44,10 +44,10 @@ class UserController extends Controller
             );
         }
     }
-    public function update(UserUpdateRequest $updateRequest) : JsonResponse
+    public function update(UserUpdateRequest $request) : JsonResponse
     {
         try {
-            return response()->json($this->userService->update($updateRequest));
+            return response()->json($this->userService->update($request));
         } catch (Exception $error) {
             return response()->json(
                 [

@@ -44,9 +44,9 @@ class UserService
 
         return new UserResource($user);
     }
-    public function update(UserUpdateRequest $updateRequest) : UserResource
+    public function update(UserUpdateRequest $request) : UserResource
     {
-        $user = $this->userRepository->update($updateRequest);
+        $user = $this->userRepository->update($request);
 
         return new UserResource($user);
     }

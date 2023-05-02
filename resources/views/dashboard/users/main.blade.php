@@ -18,7 +18,7 @@
                 <h1 class="p-2">{{ $title }}</h1>
 
                 <div class="p-2 mt-4 mb-4 border-bottom-black border-top-black">
-                    <button type="button" class="btn btn-sm btn-dark" onclick="">
+                    <button type="button" class="btn btn-sm btn-dark rounded-3" onclick="clearForm(); $UsersModal.show();">
                         New User
                     </button>
                 </div>
@@ -50,9 +50,48 @@
 
     <script src="{{ asset('js/dashboard.js') }}"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/r-2.4.1/datatables.min.js"></script>
+    @include("dashboard.users.form")
     <script>
 
         let tableUrl = "/api/dashboard/users/index";
+
+        let $UsersModal = new bootstrap.Modal(
+            $("#UsersModal"),
+            {
+                keyboard: false,
+                focus: true,
+                backdrop: true,
+            }
+        );
+
+        function editItem(itemId) {
+            $.ajax({
+                url: "/api/dashboard/users/" + itemId,
+                type: "GET",
+                success: function (response) {
+                    $("#itemId").val(response["id"]);
+                    $("#userName").val(response["name"]);
+                    $("#userEmail").val(response["email"]);
+                    $UsersModal.show();
+                },
+                error: function (response) {
+                    alert("Error: Could not get item.");
+                },
+            });
+        }
+        
+        function deleteItem(itemId) {
+            $.ajax({
+                url: "/api/dashboard/users/" + itemId,
+                type: "DELETE",
+                success: function (response) {
+                    $("#dataTable").DataTable().ajax.reload();
+                },
+                error: function (response) {
+                    alert("Error: Could not delete item.");
+                },
+            });
+        }
 
         function createDataTable(tableId, url, columns) {
             return $("#" + tableId).DataTable({

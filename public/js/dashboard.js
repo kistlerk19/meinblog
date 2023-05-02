@@ -19535,7 +19535,7 @@ $("#logoutButton").click(function (e) {
       window.location.href = "/";
     },
     error: function error() {
-      // window.location.href = "/",
+      // window.location.href = "/";
     }
   });
 });
